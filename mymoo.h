@@ -120,4 +120,8 @@
   #endif
 #endif
 
+// Should this Moo be killable via a KILL RPC or EPC KILL command?  If so,
+// #define KILL_SWITCH here.
+#define KILL_SWITCH
+
 #endif // MYMOO_H
