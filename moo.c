@@ -115,7 +115,7 @@ int main(void)
     sleep();
 
 #ifdef KILL_SWITCH
-  if (extflash_read_uchar(KILLSWITCH_ADDR) != 0)
+  if (is_killed())
       _BIS_SR(CPUOFF);
 #endif // KILL_SWITCH
 

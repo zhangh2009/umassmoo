@@ -12,8 +12,9 @@
 #define EXTFLASH_WRITE_ENABLE_COMMAND 0x06
 
 unsigned char extflash_read_uchar (unsigned long);
-
-// Return 1 on successful write; 0 otherwise.
 unsigned char extflash_write_uchar (unsigned long, unsigned char);
+void extflash_enable_chip (void);
+void extflash_disable_chip (void);
+void extflash_send_byte (unsigned char);
 
 #endif // FLASH_H
