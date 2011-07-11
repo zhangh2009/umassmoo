@@ -1773,6 +1773,18 @@
     </settings>
   </configuration>
   <file>
+    <name>$PROJ_DIR$\flash.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\flash.h</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\kill.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\kill.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\moo.c</name>
   </file>
   <file>

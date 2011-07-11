@@ -1,5 +1,6 @@
 #include "moo.h"
 #include "rpc.h"
+#include "kill.h"
 
 unsigned char rpc_cmd = 0;
 unsigned char rpc_param = 0;
@@ -55,5 +56,5 @@ unsigned int rpc_beep (void) {
 }
 
 unsigned int rpc_kill (void) {
-    return 0; // XXX
+    return kill();
 };
