@@ -18,10 +18,22 @@ void rpc_init (void) {
 
 void rpc_dispatch (void) {
     // look up rpc_cmd in the dispatch table
-    // if not in dispatch table, reset RPC globals to 0; do nothing
+    unsigned i;
 
-    // execute the function named by rpc_cmd
-    // stuff its return value in rpc_retval
+    for (i = 0; i < RPC_DISPATCH_TABLE_SIZE; ++i) {
+        if (rpc_dispatch_table[i].id == rpc_cmd) {
+            break;
+        }
+    }
+    // if not in dispatch table, reset RPC globals to 0; do nothing
+    if (i == RPC_DISPATCH_TABLE_SIZE) {
+        rpc_cmd = rpc_param = rpc_in_progress = rpc_retval = 0;
+        return;
+    }
+
+    // execute the function named by rpc_cmd; stuff its return value into
+    // rpc_retval
+    rpc_retval = (*(rpc_dispatch_table[i].fn))();
 }
 
 unsigned int rpc_beep (void) {
