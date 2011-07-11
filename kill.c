@@ -4,5 +4,5 @@
 #include "flash.h"
 
 unsigned char kill (void) {
-    return write_extflash_uchar (KILLSWITCH_ADDR, 1);
+    return extflash_write_uchar (KILLSWITCH_ADDR, 1);
 }
