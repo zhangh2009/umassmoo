@@ -567,7 +567,20 @@ int main(void)
     case STATE_READ_SENSOR:
       {
 #if SENSOR_DATA_IN_READ_COMMAND
+        read_sensor(&readReply[0]);
         // crc is computed in the read state
+        RECEIVE_CLOCK;
+        state = STATE_READY;
+        delimiterNotFound = 1; // reset
+#elif SENSOR_DATA_IN_ID
+        read_sensor(&ackReply[3]);
+        RECEIVE_CLOCK;
+        ackReplyCRC = crc16_ccitt(&ackReply[0], 14);
+        ackReply[15] = (unsigned char)ackReplyCRC;
+        ackReply[14] = (unsigned char)__swap_bytes(ackReplyCRC);
+        state = STATE_READY;
+        delimiterNotFound = 1; // reset
+#elif SIMPLE_READ_COMMAND
         RECEIVE_CLOCK;
 
         rpc_cmd = cmd[5];   // RPC command, indexes into dispatch table
@@ -581,7 +594,7 @@ int main(void)
             ackReply[6] = rpc_retval >> 8;   // high byte of rpc_retval
             ackReply[7] = rpc_retval & 0xFF; // low byte of rpc_retval
 
-            ackReplyCRC = cc16_ccitt(&ackReply[0], 14);
+            ackReplyCRC = crc16_ccitt(&ackReply[0], 14);
             ackReply[15] = (unsigned char)ackReplyCRC;
             ackReply[14] = (unsigned char)__swap_bytes(ackReplyCRC); // XXX
 
@@ -591,14 +604,6 @@ int main(void)
             rpc_dispatch();
         }
 
-        state = STATE_READY;
-        delimiterNotFound = 1; // reset
-#elif SENSOR_DATA_IN_ID
-        read_sensor(&ackReply[3]);
-        RECEIVE_CLOCK;
-        ackReplyCRC = crc16_ccitt(&ackReply[0], 14);
-        ackReply[15] = (unsigned char)ackReplyCRC;
-        ackReply[14] = (unsigned char)__swap_bytes(ackReplyCRC);
         state = STATE_READY;
         delimiterNotFound = 1; // reset
 #endif
