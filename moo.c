@@ -119,6 +119,8 @@ int main(void)
       _BIS_SR(CPUOFF);
 #endif // KILL_SWITCH
 
+  rpc_init();
+
   RECEIVE_CLOCK;
 
 #if DEBUG_PINS_ENABLED

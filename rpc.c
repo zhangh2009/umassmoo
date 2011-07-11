@@ -14,8 +14,8 @@ void rpc_init (void) {
     rpc_dispatch_table[0].id = 1;
     rpc_dispatch_table[0].fn = &rpc_beep;
 
-    rpc_dispatch_table[0].id = 66;
-    rpc_dispatch_table[0].fn = &rpc_kill;
+    rpc_dispatch_table[1].id = 66;
+    rpc_dispatch_table[1].fn = &rpc_kill;
 
     // XXX more RPCs
 }
