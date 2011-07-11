@@ -56,25 +56,6 @@ unsigned char iodata; // global variable to store read data
 
 void init_spi()
 {
-  volatile unsigned int i;
-  if (CALBC1_1MHZ ==0xFF || CALDCO_1MHZ == 0xFF)                                     
-  {  
-    while(1); // If calibration constants erased do not load, trap CPU!!
-  }  
-  BCSCTL3 |= XCAP_3;                        // Configure load caps
-  BCSCTL1 = CALBC1_1MHZ;                    // Set DCO
-  DCOCTL = CALDCO_1MHZ;
-
-  // Wait for xtal to stabilize
-  do
-  {
-    IFG1 &= ~OFIFG;                         // Clear OSCFault flag
-    for (i = 0x47FF; i > 0; i--);           // Time for flag to set
-  }
-  while ((IFG1 & OFIFG));                   // OSCFault flag still set?
-
-  for(i=2100;i>0;i--);                      // Now with stable ACLK, wait for
-                                            // DCO to stabilize.
   P5OUT |= 0x01;                            // P5 setup for slave reset
   P5DIR |= 0x01;                            // P5.0 set output for CE#
   P5SEL |= 0x0E;                            // P5.3,2,1 option select
@@ -85,8 +66,6 @@ void init_spi()
   UCB1CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
   UC1IE |= UCB1RXIE;                        // Enable USCI_B1 RX interrupt
   _BIS_SR(GIE);  //LPM4_bits + GIE, CPU off, enable interrupts
-
-  for(i=50;i>0;i--);                        // Wait for slave to initialize
 }
 
 /************************************************************************/
