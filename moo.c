@@ -50,6 +50,7 @@
 
 #include "moo.h"
 #include "rfid.h"
+#include "rpc.h"
 
 /*******************************************************************************
  ****************  Edit mymoo.h to configure this Moo  *************************
@@ -566,9 +567,14 @@ int main(void)
     case STATE_READ_SENSOR:
       {
 #if SENSOR_DATA_IN_READ_COMMAND
-        read_sensor(&readReply[0]);
         // crc is computed in the read state
         RECEIVE_CLOCK;
+
+        rpc_cmd = cmd[5];   // RPC command, indexes into dispatch table
+        rpc_param = cmd[6]; // Optional parameter for RPC command
+
+
+
         state = STATE_READY;
         delimiterNotFound = 1; // reset
 #elif SENSOR_DATA_IN_ID

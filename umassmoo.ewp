@@ -606,7 +606,7 @@
         </option>
         <option>
           <name>SecondaryOutputFile</name>
-          <state></state>
+          <state>(None for the selected format)</state>
         </option>
         <option>
           <name>XDefines</name>
@@ -646,7 +646,7 @@
         </option>
         <option>
           <name>XIncludes</name>
-          <state>###Uninitialized###</state>
+          <state>$TOOLKIT_DIR$\LIB\</state>
         </option>
         <option>
           <name>ModuleStatus</name>
@@ -658,7 +658,7 @@
         </option>
         <option>
           <name>XclFile</name>
-          <state>lnk0t.xcl</state>
+          <state>$TOOLKIT_DIR$\CONFIG\lnk430F2618.xcl</state>
         </option>
         <option>
           <name>XclFileSlave</name>
@@ -746,7 +746,7 @@
         </option>
         <option>
           <name>xcProgramEntryLabel</name>
-          <state></state>
+          <state>__program_start</state>
         </option>
         <option>
           <name>DebugInformation</name>
@@ -786,7 +786,7 @@
         </option>
         <option>
           <name>ExtraOutputFile</name>
-          <state></state>
+          <state>umassmoo.a43</state>
         </option>
         <option>
           <name>ExtraOutputFormat</name>
@@ -1782,16 +1782,22 @@
     <name>$PROJ_DIR$\mymoo.h</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\quick_accel_sensor.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\quick_accel_sensor.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\rfid.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\rfid.h</name>
   </file>
   <file>
-    <name>$PROJ_DIR$\quick_accel_sensor.c</name>
+    <name>$PROJ_DIR$\rpc.c</name>
   </file>
   <file>
-    <name>$PROJ_DIR$\quick_accel_sensor.h</name>
+    <name>$PROJ_DIR$\rpc.h</name>
   </file>
 </project>
 
