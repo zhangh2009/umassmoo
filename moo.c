@@ -573,7 +573,23 @@ int main(void)
         rpc_cmd = cmd[5];   // RPC command, indexes into dispatch table
         rpc_param = cmd[6]; // Optional parameter for RPC command
 
+        if (rpc_in_progress) {
+            /* if we reach here, the RPC has finished, so return its response
+             * to the reader */
+            ackReply[4] = rpc_cmd;           // echo back command & param
+            ackReply[5] = rpc_param;         //  ^ (reader should sanity-check)
+            ackReply[6] = rpc_retval >> 8;   // high byte of rpc_retval
+            ackReply[7] = rpc_retval & 0xFF; // low byte of rpc_retval
 
+            ackReplyCRC = cc16_ccitt(&ackReply[0], 14);
+            ackReply[15] = (unsigned char)ackReplyCRC;
+            ackReply[14] = (unsigned char)__swap_bytes(ackReplyCRC); // XXX
+
+            rpc_in_progress = 0;
+        } else {
+            rpc_in_progress = 1;
+            rpc_dispatch();
+        }
 
         state = STATE_READY;
         delimiterNotFound = 1; // reset
