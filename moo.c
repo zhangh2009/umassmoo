@@ -51,6 +51,7 @@
 #include "moo.h"
 #include "rfid.h"
 #include "rpc.h"
+#include "flash.h"
 
 /*******************************************************************************
  ****************  Edit mymoo.h to configure this Moo  *************************
@@ -111,6 +112,11 @@ int main(void)
   // Check power on bootup, decide to receive or sleep.
   if(!is_power_good())
     sleep();
+
+#ifdef KILL_SWITCH
+  if (read_extflash_uchar(KILL_SWITCH_ADDR) != 0)
+      _BIS_SR(CPUOFF);
+#endif // KILL_SWITCH
 
   RECEIVE_CLOCK;
 
