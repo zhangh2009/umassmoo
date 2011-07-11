@@ -1,3 +1,5 @@
+/* See license.txt for license information. */
+
 #include "moo.h"
 #include "rpc.h"
 #include "kill.h"

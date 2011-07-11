@@ -1,3 +1,5 @@
+/* See license.txt for license information. */
+
 #ifndef FLASH_H
 #define FLASH_H
 

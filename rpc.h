@@ -1,3 +1,5 @@
+/* See license.txt for license information. */
+
 #ifndef RPC_H
 #define RPC_H
 
