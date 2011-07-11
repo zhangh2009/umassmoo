@@ -1,3 +1,4 @@
+#include "moo.h"
 #include "rpc.h"
 
 unsigned char rpc_cmd = 0;
@@ -37,7 +38,20 @@ void rpc_dispatch (void) {
 }
 
 unsigned int rpc_beep (void) {
-    return 0; // XXX
+#define COUNTERLEN 500 // ~440 Hz
+#define NUMCYCLES 250
+#define P36 0x40 // 0b01000000, pin 3.6
+    unsigned i, cyc;
+
+    P3DIR |= P36; // P3.6 is an output pin; all others are inputs
+
+    for (cyc = 0; cyc != NUMCYCLES; ++cyc) {
+        P3OUT ^= P36; // toggle P3.6
+        i = COUNTERLEN;
+        do { --i; } while (i != 0);
+    }
+
+    return 1;
 }
 
 unsigned int rpc_kill (void) {
